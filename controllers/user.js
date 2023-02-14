@@ -1,5 +1,8 @@
 // import the user model
 const User = require('../model/user');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const saltRounds = 10;
 
 // action
 module.exports.signUp = async (req, res) => {
@@ -29,11 +32,13 @@ module.exports.signUp = async (req, res) => {
             })
         }
 
+        const hashPassword = bcrypt.hashSync(password, saltRounds);
+
         // 4-> create the user
         const user = await User.create({
             name: name,
             email: email,
-            password: password,
+            password: hashPassword,
         });
 
         // 5-> send the response
@@ -74,18 +79,21 @@ module.exports.signIn = async (req, res) => {
 
         //4-> compare both the credentials
         //4.a-> else responsd with email/password is incorrect
-        if(password !== user.password) {
+
+        const isPasswordMatched = bcrypt.compareSync(password, user.password);
+        if(!isPasswordMatched) {
             return res.status(400).json({
                 message: "email/password does not match!",
                 data: {}
             })
         };
 
+        const token = jwt.sign({ email: user.email }, '4h9K1XeLlA', { expiresIn: '1h' });
         //4.b-> if true then give positive response
         return res.status(200).json({
             message: "Successfully signedIn",
             data: {
-                user: user,
+                token: token,
             }
         })
         
