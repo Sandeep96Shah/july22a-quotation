@@ -106,3 +106,10 @@ module.exports.signIn = async (req, res) => {
         })
     }
 }
+
+
+const a = 10;
+
+const find = typeof(a);
+
+console.log(typeof(find));

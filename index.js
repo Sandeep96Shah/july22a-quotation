@@ -3,6 +3,7 @@ const port = 8000;
 const app = express();
 // import the database
 const database = require('./config/monggose');
+const passportJWT = require('./config/passport_jwt');
 
 // middleware
 app.use(express.urlencoded());

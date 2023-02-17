@@ -3,7 +3,11 @@ const Quotation = require('../model/quotation');
 module.exports.createQuotation = async (req, res) => {
     try{
         // 1-> fetch the content and userId from the req.body object
-        const { content, userId } = req.body;
+        const { content } = req.body;
+
+        // const userId = req.user._id;
+        // below statment means same like above statement.
+        const { _id: userId } = req.user;
 
         // 2-> save the data in db
         const quotation = await Quotation.create({
