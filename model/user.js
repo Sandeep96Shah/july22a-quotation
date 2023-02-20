@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     quotations: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Quotation",
+            ref: "quotation",
         }
     ]
 }, {

@@ -22,5 +22,11 @@ router.post('/create-quotation',
     quotationController.createQuotation
 );
 
+// api to get all the quotations
+router.get('/quotations', 
+    passport.authenticate('jwt', { session: false }),
+    quotationController.getAllQuotations
+    );
+
 //export the router
 module.exports = router;

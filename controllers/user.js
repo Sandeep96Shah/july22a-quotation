@@ -45,8 +45,8 @@ module.exports.signUp = async (req, res) => {
         return res.status(200).json({
             message: "User created successfully!",
             data: {
-                name: name,
-                email: email
+                name,
+                email
             }
         }) 
     }catch(error){
@@ -54,7 +54,7 @@ module.exports.signUp = async (req, res) => {
         return res.status(500).json({
             message: "Opps something went wrong!",
             data: {
-                error: error,
+                error,
             }
         })
     }
@@ -93,7 +93,7 @@ module.exports.signIn = async (req, res) => {
         return res.status(200).json({
             message: "Successfully signedIn",
             data: {
-                token: token,
+                token,
             }
         })
         
@@ -101,15 +101,8 @@ module.exports.signIn = async (req, res) => {
         return res.status(500).json({
             message: "Opps something went wrong!",
             data: {
-                error: error,
+                error,
             }
         })
     }
 }
-
-
-const a = 10;
-
-const find = typeof(a);
-
-console.log(typeof(find));

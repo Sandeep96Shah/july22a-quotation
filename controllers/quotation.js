@@ -19,14 +19,44 @@ module.exports.createQuotation = async (req, res) => {
         return res.status(200).json({
             message: "Quotation created successfully!",
             data: {
-                quotation: quotation,
+                quotation,
             }
         })
     }catch(error){
         return res.status(500).json({
             message: "Opps something went wrong!",
             data: {
-                error: error,
+                error,
+            }
+        })
+    }
+}
+
+
+module.exports.getAllQuotations = async (req, res) => {
+    try{
+        // fetch all the quotations from the database
+        // to fetch all the data from the Quotation model [ MODEL.find({})]
+        const quotations = await Quotation.find({}).populate([{
+            path: "user",
+            select: "name email",
+        }
+    ]);
+
+        // const quotations1 = await Quotation.find({}).populate("user", "name");
+        
+        // response the fetched quotations
+        return res.status(200).json({
+            message: "Successfuly fetched the quotations!",
+            data: {
+                quotations,
+            }
+        })
+    }catch(error){
+        return res.status(500).json({
+            message: "Error while fetching the quotations!",
+            data: {
+                error,
             }
         })
     }
