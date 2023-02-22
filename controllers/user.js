@@ -106,3 +106,37 @@ module.exports.signIn = async (req, res) => {
         })
     }
 }
+
+// controller action to give user details and all quotations
+module.exports.userDetails = async (req, res) => {
+    try{
+        // get userId from the req.user
+        const { _id: userId } = req.user;
+        // const userId = req.user._id;
+
+        // fetch user details from the User model by using the userId
+        const userDetails = await User.findById(userId, "name email quotations").populate([{
+            path: "quotations",
+            populate: {
+                path: "user",
+                select: "name",
+            }
+        },
+    ]);
+
+        // response with the user details
+        return res.status(200).json({
+            message: "Successfully fetched user details!",
+            data: {
+                userDetails,
+            }
+        })
+    }catch(error){
+        return res.status(500).json({
+            message: "Opps something went wrong!",
+            data: {
+                error,
+            }
+        })
+    }
+}

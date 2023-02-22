@@ -26,7 +26,13 @@ router.post('/create-quotation',
 router.get('/quotations', 
     passport.authenticate('jwt', { session: false }),
     quotationController.getAllQuotations
-    );
+);
+
+// api to get user details
+router.get('/user-details', 
+    passport.authenticate('jwt', { session: false }),
+    userController.userDetails
+);
 
 //export the router
 module.exports = router;

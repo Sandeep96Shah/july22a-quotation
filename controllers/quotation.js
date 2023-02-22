@@ -1,8 +1,9 @@
 const Quotation = require('../model/quotation');
+const User = require('../model/user');
 
 module.exports.createQuotation = async (req, res) => {
     try{
-        // 1-> fetch the content and userId from the req.body object
+        // 1-> fetch the content from the req.body object
         const { content } = req.body;
 
         // const userId = req.user._id;
@@ -13,7 +14,11 @@ module.exports.createQuotation = async (req, res) => {
         const quotation = await Quotation.create({
             content: content,
             user: userId,
-        })
+        });
+
+        const user = await User.findById(userId);
+        user.quotations.push(quotation._id);
+        await user.save();
 
         // 3-> send response
         return res.status(200).json({
