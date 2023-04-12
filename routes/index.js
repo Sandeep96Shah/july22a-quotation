@@ -34,5 +34,7 @@ router.get('/user-details',
     userController.userDetails
 );
 
+router.get("/test", userController.home);
+
 //export the router
 module.exports = router;

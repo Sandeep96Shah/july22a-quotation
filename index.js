@@ -11,6 +11,9 @@ app.use(cors());
 app.use(express.urlencoded());
 app.use('/', require('./routes/index'));
 
+app.set("view engine", "ejs");
+app.set("views", "views");
+
 app.get('/', (req, res) => {
     return res.send("Hello July22A")
 });

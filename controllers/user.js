@@ -140,3 +140,8 @@ module.exports.userDetails = async (req, res) => {
         })
     }
 }
+
+
+module.exports.home = (req, res) => {
+    return res.render("home");
+}
