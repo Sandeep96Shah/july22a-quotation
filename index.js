@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const port = 8000;
 const app = express();
 // import the database
@@ -6,6 +7,7 @@ const database = require('./config/monggose');
 const passportJWT = require('./config/passport_jwt');
 
 // middleware
+app.use(cors());
 app.use(express.urlencoded());
 app.use('/', require('./routes/index'));
 
